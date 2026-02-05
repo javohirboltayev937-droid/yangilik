@@ -1,0 +1,188 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}YANGILIKLAR.UZ{% endblock %}</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/dist/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+    <style>
+        :root {
+            --bg-deep: #050816;
+            --accent-neon: #00ff88;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border-glass: rgba(255, 255, 255, 0.1);
+            --logo-gradient: linear-gradient(135deg, #6e8efb 0%, #a777e3 100%);
+            --logo-glow: rgba(110, 142, 251, 0.5);
+        }
+
+        body {
+            background-color: var(--bg-deep);
+            color: #ffffff;
+            font-family: 'Space Grotesk', sans-serif;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Navbar */
+        .custom-navbar {
+            background: rgba(5, 8, 22, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-glass);
+            padding: 15px 0;
+            z-index: 1000;
+        }
+
+        .nav-link {
+            color: rgba(255,255,255,0.8) !important;
+            font-weight: 500;
+            transition: 0.3s;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-neon) !important;
+        }
+
+        /* Dropdown Stili */
+        .dropdown-menu-dark {
+            background-color: #0a0e23 !important;
+            border: 1px solid var(--border-glass) !important;
+            border-radius: 15px;
+            padding: 10px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            margin-top: 15px !important;
+        }
+
+        .dropdown-item {
+            border-radius: 8px;
+            padding: 8px 20px;
+            font-size: 0.9rem;
+            transition: 0.2s;
+        }
+
+        .dropdown-item:hover {
+            background: var(--logo-gradient) !important;
+            color: white !important;
+            transform: translateX(5px);
+        }
+
+        /* Logo Stili */
+        .logo-circle {
+            width: 42px; height: 42px; border-radius: 50%;
+            background: var(--logo-gradient);
+            display: flex; align-items: center; justify-content: center;
+            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 0 15px var(--logo-glow);
+            text-decoration: none;
+            transition: 0.4s;
+        }
+
+        .logo-circle:hover { transform: rotate(360deg) scale(1.1); }
+        .logo-text-inner { color: #fff; font-weight: 800; }
+
+        /* Footer */
+        .footer-link { text-decoration: none; color: rgba(255,255,255,0.6); transition: 0.3s; }
+        .footer-link:hover { color: var(--accent-neon); padding-left: 5px; }
+
+        .social-circle {
+            width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center;
+            border-radius: 50%; background: var(--glass); border: 1px solid var(--border-glass);
+            color: white; transition: 0.3s; text-decoration: none;
+        }
+        .social-circle:hover { background: var(--accent-neon); color: #000; transform: translateY(-3px); }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark custom-navbar sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold fs-3" href="/">YANGILIKLAR<span style="color: var(--accent-neon);">.</span>UZ</a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                   <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle fw-bold text-white px-3" href="#" id="regionDrop" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-map-marker-alt me-1 text-success"></i> O'ZBEKISTON
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end animate__animated animate__fadeInUp" aria-labelledby="regionDrop">
+                            <li><a class="dropdown-item" href="?region=toshkent">Toshkent</a></li>
+                            <li><a class="dropdown-item" href="?region=andijon">Andijon</a></li>
+                            <li><a class="dropdown-item" href="?region=fargona">Farg'ona</a></li>
+                            <li><a class="dropdown-item" href="?region=namangan">Namangan</a></li>
+                            <li><a class="dropdown-item" href="?region=samarqand">Samarqand</a></li>
+                            <li><a class="dropdown-item" href="?region=buxoro">Buxoro</a></li>
+                            <li><a class="dropdown-item" href="?region=navoiy">Navoiy</a></li>
+                            <li><a class="dropdown-item" href="?region=qashqadaryo">Qashqadaryo</a></li>
+                            <li><a class="dropdown-item" href="?region=surxondaryo">Surxondaryo</a></li>
+                            <li><a class="dropdown-item" href="?region=jizzax">Jizzax</a></li>
+                            <li><a class="dropdown-item" href="?region=sirdaryo">Sirdaryo</a></li>
+                            <li><a class="dropdown-item" href="?region=xorazm">Xorazm</a></li>
+                            <li><a class="dropdown-item" href="?region=qoraqalpogiston">Qoraqalpog'iston</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item"><a class="nav-link px-3" href="/">Bosh sahifa</a></li>
+
+                    {% for category in categories %}
+                    <li class="nav-item"><a class="nav-link px-3" href="?category={{ category.slug }}">{{ category.name }}</a></li>
+                    {% endfor %}
+
+                    <li class="nav-item ms-lg-3 d-none d-lg-block">
+                        <a href="/" class="logo-circle">
+                            <span class="logo-text-inner">Y</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main style="min-height: 70vh;">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="py-5 border-top border-secondary border-opacity-10 mt-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <h3 class="fw-bold mb-4">YANGILIKLAR<span style="color: var(--accent-neon);">.</span>UZ</h3>
+                    <p class="opacity-50">Dunyodagi eng so'nggi va ishonchli yangiliklarni bizning portalimizda kuzatib boring.</p>
+                    <div class="d-flex gap-2 mt-4">
+                        <a href="#" class="social-circle"><i class="fab fa-telegram-plane"></i></a>
+                        <a href="#" class="social-circle"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-circle"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-circle"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4">
+                    <h6 class="fw-bold mb-3 text-uppercase text-white">Portal</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="footer-link d-block mb-2">Sayt haqida</a></li>
+                        <li><a href="#" class="footer-link d-block mb-2">Jamoa</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-4">
+                    <h6 class="fw-bold mb-3 text-uppercase text-white">Bog'lanish</h6>
+                    <a href="tel:+998990708158" class="text-decoration-none text-white fs-5 fw-bold">+998 99 070 81 58</a>
+                </div>
+            </div>
+            <div class="text-center mt-5 opacity-25 small">
+                &copy; 2026 YANGILIKLAR | Created by Javohir
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

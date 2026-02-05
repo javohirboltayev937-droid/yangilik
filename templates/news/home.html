@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.59/build/spline-viewer.js"></script>
+
+<div class="container mt-5">
+
+    {% if not is_region_view and top_news %}
+    <section class="row align-items-center mb-5" style="min-height: 500px;">
+        <div class="col-lg-7 animate__animated animate__fadeInLeft">
+            <span class="badge bg-success mb-3 p-2 px-3 text-dark fw-bold" style="letter-spacing: 1px;">ASOSIY YANGILIK</span>
+            <h1 class="display-3 fw-bold mb-4" style="line-height: 1.1; letter-spacing: -1px;">
+                {{ top_news.title }}
+            </h1>
+            <p class="fs-5 opacity-75 mb-4" style="max-width: 600px;">
+                {{ top_news.body|truncatewords:30 }}
+            </p>
+            <div class="d-flex align-items-center gap-3">
+                <a href="{% url 'news_detail' top_news.slug %}" class="btn btn-success btn-lg rounded-pill px-5 fw-bold text-dark">
+                    O'qish
+                </a>
+                <span class="opacity-50 ms-3"><i class="far fa-eye me-2"></i>{{ top_news.views }} ko'rildi</span>
+            </div>
+        </div>
+
+        <div class="col-lg-5 mt-5 mt-lg-0 animate__animated animate__fadeInRight" style="height: 500px; position: relative;">
+            <spline-viewer url="https://prod.spline.design/6Wq1Q7YAnWv6B3st/scene.splinecode"></spline-viewer>
+            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 300px; height: 300px; background: radial-gradient(circle, rgba(0,255,136,0.1) 0%, rgba(5,8,22,0) 70%); z-index: -1;"></div>
+        </div>
+    </section>
+    <hr class="border-secondary opacity-25 my-5">
+    {% endif %}
+
+    <div class="d-flex justify-content-between align-items-center mb-5">
+        <h2 class="fw-bold m-0 text-uppercase">
+            {% if selected_region %}{{ selected_region }} xabarlari{% else %}So'nggi <span style="color: var(--accent-neon);">Xabarlar</span>{% endif %}
+        </h2>
+        <div class="line d-none d-md-block" style="flex-grow: 1; height: 1px; background: rgba(255,255,255,0.1); margin: 0 30px;"></div>
+    </div>
+
+    <div class="row g-4">
+        {% for news in latest_news %}
+        <div class="col-md-4">
+            <div class="card bg-transparent border-secondary border-opacity-25 h-100 rounded-4 overflow-hidden shadow-sm hover-card">
+                <div class="position-relative">
+                    <img src="{{ news.image.url }}" class="card-img-top" style="height: 240px; object-fit: cover; filter: brightness(0.9);">
+                    <span class="position-absolute top-0 start-0 m-3 badge bg-dark bg-opacity-75 border border-secondary">{{ news.category.name }}</span>
+                </div>
+                <div class="card-body p-4">
+                    <h5 class="card-title fw-bold mt-2 lh-base">{{ news.title }}</h5>
+                    <p class="card-text opacity-50 small">{{ news.body|truncatewords:15 }}</p>
+                </div>
+                <div class="card-footer bg-transparent border-0 p-4 pt-0">
+                    <a href="{% url 'news_detail' news.slug %}" class="text-decoration-none text-success fw-bold">Batafsil o'qish →</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12 text-center py-5">
+            <h4 class="opacity-50">Hozircha bu hududda yangiliklar yo'q.</h4>
+        </div>
+        {% endfor %}
+    </div>
+
+    <section class="mt-5 pt-5 border-top border-secondary border-opacity-10">
+        <div class="d-flex align-items-center mb-5">
+            <div class="logo-circle animate__animated animate__pulse animate__infinite" style="width: 60px; height: 60px;">
+                <span class="logo-text-inner" style="font-size: 0.9rem;">Y.UZ</span>
+            </div>
+            <h2 class="fw-bold m-0 ms-3 text-uppercase">E'lonlar</h2>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-lg-3 col-md-6">
+                <div class="elon-box">
+                    <div class="elon-img-wrapper mb-3">
+                        <img src="https://via.placeholder.com/400x250/1a1e2e/ffffff?text=Reklama+1" class="img-fluid rounded-4">
+                    </div>
+                    <h6 class="fw-bold lh-base footer-link cursor-pointer">Market Yandex Go buyurtmalarni topshirish punktini qanday ochish mumkin?</h6>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="elon-box">
+                    <div class="elon-img-wrapper mb-3">
+                        <img src="https://via.placeholder.com/400x250/1a1e2e/ffffff?text=Reklama+2" class="img-fluid rounded-4">
+                    </div>
+                    <h6 class="fw-bold lh-base footer-link cursor-pointer">Bilimdan hosilgacha: Turonbank hamkorligidagi Ustoz AI kurslari.</h6>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<style>
+    /* Hover-card va Spline sozlamalari */
+    .hover-card {
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .hover-card:hover {
+        transform: translateY(-10px);
+        border-color: var(--accent-neon) !important;
+        box-shadow: 0 10px 30px rgba(0, 255, 136, 0.1) !important;
+    }
+    .elon-box {
+        transition: 0.3s ease;
+        cursor: pointer;
+    }
+    .elon-box:hover {
+        transform: translateY(-8px);
+    }
+    .elon-img-wrapper img {
+        transition: 0.5s ease;
+        border: 1px solid var(--border-glass);
+    }
+    .elon-box:hover img {
+        border-color: var(--accent-neon);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+    }
+    spline-viewer { width: 100%; height: 100%; }
+    .cursor-pointer { cursor: pointer; }
+</style>
+{% endblock %}

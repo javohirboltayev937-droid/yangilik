@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5 animate__animated animate__fadeIn">
+    <div class="row">
+        <div class="col-lg-8">
+            <nav aria-label="breadcrumb" class="mb-4">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/" class="text-success text-decoration-none">Bosh sahifa</a></li>
+                    <li class="breadcrumb-item active text-white opacity-50">{{ news.category.name }}</li>
+                </ol>
+            </nav>
+
+            <h1 class="fw-bold mb-4" style="font-size: 2.5rem; line-height: 1.2;">{{ news.title }}</h1>
+
+            <div class="d-flex align-items-center gap-4 mb-4 opacity-75">
+                <span><i class="far fa-calendar-alt me-2 text-success"></i>{{ news.created_at|date:"d-M, Y" }}</span>
+                <span><i class="far fa-eye me-2 text-success"></i>{{ news.views }} marta ko'rildi</span>
+                {% if news.region %}
+                <span><i class="fas fa-map-marker-alt me-2 text-success"></i>{{ news.get_region_display }}</span>
+                {% endif %}
+            </div>
+
+            {% if news.image %}
+            <div class="rounded-4 overflow-hidden mb-4 shadow-lg border border-secondary border-opacity-25">
+                <img src="{{ news.image.url }}" class="img-fluid w-100" style="object-fit: cover;" alt="{{ news.title }}">
+            </div>
+            {% endif %}
+
+            <div class="news-body fs-5 lh-lg opacity-75" style="white-space: pre-wrap;">
+                {{ news.body }}
+            </div>
+
+            <hr class="my-5 border-secondary opacity-10">
+            <a href="/" class="btn btn-outline-success rounded-pill px-4 mb-5">
+                <i class="fas fa-arrow-left me-2"></i> Orqaga qaytish
+            </a>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="sticky-top" style="top: 100px; z-index: 1;">
+                <div class="p-4 rounded-4" style="background: var(--glass); border: 1px solid var(--border-glass);">
+                    <h5 class="fw-bold mb-4 text-uppercase border-bottom border-secondary pb-2">Kategoriyalar</h5>
+                    <ul class="list-unstyled">
+                        {% for cat in categories %}
+                        <li class="mb-3">
+                            <a href="/?category={{ cat.slug }}" class="footer-link d-flex justify-content-between align-items-center">
+                                {{ cat.name }}
+                                <i class="fas fa-chevron-right small"></i>
+                            </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
